@@ -1,4 +1,4 @@
-.PHONY: help start-local start-serverless-offline test coverage pre-commit
+.PHONY: help start-local test coverage lint lint-fix format pre-commit-install pre-commit
 
 default: help
 
@@ -6,10 +6,7 @@ help: # Show help for each of the Makefile recipes.
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
 start-local: # Start local server
-	uvicorn fastapi_serverless_starter.main:app --reload
-
-start-serverless-offline: # Start local serverless
-	serverless offline start
+	poetry run uvicorn app.main:app --reload
 
 test: # Run tests
 ifdef filter
@@ -19,7 +16,19 @@ else
 endif
 
 coverage: test # Run tests with coverage
-	poetry run pytest --cov-report term-missing --cov=fastapi_serverless_starter
+	poetry run pytest --cov-report term-missing --cov=app
+
+lint: # Run linter
+	poetry run ruff check .
+
+lint-fix: # Run linter with fix
+	poetry run ruff check --fix .
+
+format: # Run formatter
+	poetry run ruff format .
+
+pre-commit-install: # Install pre-commit hooks
+	poetry run pre-commit install
 
 pre-commit: # Run pre-commit hooks
-	pre-commit
+	poetry run pre-commit

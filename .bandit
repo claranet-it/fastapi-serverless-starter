@@ -1,3 +1,0 @@
-[bandit]
-exclude:./tests/,tests/*
-targets=fastapi_serverless_starter/
