@@ -1,10 +1,9 @@
-# FastAPI Serverless Starter
+# FastAPI Serverless Tester
 
 ## Pre-requisites
 
-- Python 3.9.x
-- Poetry 1.6.1
-- NodeJs 18.x
+- Python 3.12.x
+- Poetry 1.8.x
 
 ## Tools and Frameworks
 
@@ -12,16 +11,12 @@
 - [x] Uvicorn
 - [x] pytest
 - [x] pre-commit
-- [x] isort
-- [x] black
-- [x] flake8
-- [x] bandit
+- [x] ruff
 
 ## Install dependencies
 
 ```
 poetry install
-npm install
 ```
 
 ## Install pre-commit hooks
@@ -37,9 +32,19 @@ Start local server
 make start-local
 ```
 
-Start serverless offline
+Lint
 ```
-make start-serverless-offline
+make lint
+```
+
+Lint and fix
+```
+make lint-fix
+```
+
+Format
+```
+make format
 ```
 
 Launch tests
